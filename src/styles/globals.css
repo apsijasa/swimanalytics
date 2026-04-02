@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #E53935;
+  --color-primary-light: #EF5350;
+  --color-primary-hover: #D32F2F;
+  --color-primary-pale: #FFCDD2;
+  --color-black: #212121;
+  --color-gray-dark: #424242;
+  --color-gray-mid: #6c757d;
+  --color-gray-border: #dee2e6;
+  --color-gray-light: #F5F5F5;
+  --color-gray-very-light: #F9F9F9;
+  --color-white: #FFFFFF;
+  --color-blue: #1565C0;
+  --color-success: #4CAF50;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body text-gray-dark bg-gray-very-light;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-hover text-white font-body font-semibold px-6 py-3 rounded-lg transition-colors duration-200 inline-block;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-primary text-primary hover:bg-primary-pale font-body font-semibold px-6 py-3 rounded-lg transition-colors duration-200 inline-block;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .container-content {
+    @apply max-w-content mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply bg-white border border-gray-border rounded-2xl shadow-sm hover:border-primary transition-colors duration-200;
+  }
+}

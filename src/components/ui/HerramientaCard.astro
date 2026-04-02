@@ -1,0 +1,41 @@
+---
+interface Props {
+  numero: number;
+  nombre: string;
+  descripcion: string;
+  features: string[];
+  icon: string;
+}
+
+const { numero, nombre, descripcion, features, icon } = Astro.props;
+---
+
+<div class="card p-8 flex flex-col gap-5">
+  <div class="flex items-start gap-4">
+    <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
+      {icon}
+    </div>
+    <div>
+      <span class="text-xs font-body font-semibold text-primary uppercase tracking-widest">
+        Herramienta {numero}
+      </span>
+      <h3 class="font-heading font-bold text-black text-xl mt-0.5">{nombre}</h3>
+    </div>
+  </div>
+
+  <p class="text-gray-mid text-base leading-relaxed">{descripcion}</p>
+
+  <!-- REEMPLAZAR: imagen real de la herramienta -->
+  <div class="w-full h-40 bg-gray-light rounded-xl flex items-center justify-center border border-gray-border">
+    <span class="text-gray-mid text-sm">📸 Screenshot de {nombre}</span>
+  </div>
+
+  <ul class="space-y-2">
+    {features.map(f => (
+      <li class="flex items-center gap-2 text-gray-dark text-sm">
+        <div class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></div>
+        {f}
+      </li>
+    ))}
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  icon: string;
+  titulo: string;
+  beneficios: string[];
+}
+
+const { icon, titulo, beneficios } = Astro.props;
+---
+
+<div class="card p-6 flex flex-col gap-4">
+  <div class="w-12 h-12 bg-primary-pale rounded-xl flex items-center justify-center text-2xl">
+    {icon}
+  </div>
+  <h3 class="font-heading font-semibold text-black text-lg">{titulo}</h3>
+  <ul class="space-y-2">
+    {beneficios.map(b => (
+      <li class="flex items-start gap-2 text-gray-mid text-sm">
+        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        {b}
+      </li>
+    ))}
+  </ul>
+</div>

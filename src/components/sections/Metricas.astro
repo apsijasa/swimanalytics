@@ -1,0 +1,82 @@
+---
+const metricas = [
+  { valor: 500, sufijo: '+', label: 'Usuarios activos', icon: '👥' },
+  { valor: 50000, sufijo: '+', label: 'Planes de entrenamiento', icon: '📋' },
+  { valor: 1000000, sufijo: '+', label: 'Tiempos analizados', icon: '⏱️' },
+];
+
+function formatNumber(n: number): string {
+  if (n >= 1000000) return (n / 1000000).toString() + 'M';
+  if (n >= 1000) return (n / 1000).toString() + 'k';
+  return n.toString();
+}
+---
+
+<section class="section-padding bg-black">
+  <div class="container-content">
+    <div class="text-center mb-10">
+      <h2 class="font-heading font-bold text-white text-3xl sm:text-4xl">
+        SwimAnalytics en números
+      </h2>
+      <p class="text-white/60 text-lg mt-3">
+        Datos reales de clubes que ya confían en nuestra plataforma.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {metricas.map((m, i) => (
+        <div class="text-center p-8 rounded-2xl bg-white/5 border border-white/10">
+          <div class="text-4xl mb-3">{m.icon}</div>
+          <p
+            class="font-heading font-extrabold text-white text-5xl sm:text-6xl counter"
+            data-target={m.valor}
+            data-suffix={m.sufijo}
+          >
+            0
+          </p>
+          <p class="text-white/60 text-base mt-2">{m.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function animateCounter(el: HTMLElement) {
+    const target = parseInt(el.dataset.target ?? '0', 10);
+    const suffix = el.dataset.suffix ?? '';
+    const duration = 2000;
+    const start = performance.now();
+
+    function formatValue(n: number): string {
+      if (n >= 1000000) return Math.round(n / 100000) / 10 + 'M';
+      if (n >= 1000) return Math.round(n / 100) / 10 + 'k';
+      return Math.round(n).toString();
+    }
+
+    function update(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = formatValue(current) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  document.querySelectorAll('.counter').forEach(el => observer.observe(el));
+</script>

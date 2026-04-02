@@ -1,0 +1,30 @@
+---
+import { APP_LINKS } from '../../lib/links';
+---
+
+<section class="section-padding bg-black relative overflow-hidden">
+  <!-- Decorative background -->
+  <div class="absolute inset-0 opacity-10">
+    <svg viewBox="0 0 1440 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" preserveAspectRatio="xMidYMid slice">
+      <path d="M0 200C360 100 720 300 1080 200C1260 150 1380 220 1440 200V400H0V200Z" fill="#E53935"/>
+    </svg>
+  </div>
+
+  <div class="container-content relative z-10 text-center">
+    <span class="text-primary-pale font-body font-semibold text-sm uppercase tracking-widest">Únete hoy</span>
+    <h2 class="font-heading font-extrabold text-white text-3xl sm:text-5xl mt-4 mb-6 max-w-3xl mx-auto leading-tight">
+      Lleva tu club de natación al siguiente nivel
+    </h2>
+    <p class="text-white/70 text-lg max-w-xl mx-auto mb-10">
+      Más de 500 entrenadores y administradores ya confían en SwimAnalytics. Comienza hoy — es gratis.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href={APP_LINKS.login} class="btn-primary text-lg px-10 py-4">
+        Comenzar ahora
+      </a>
+      <a href={APP_LINKS.app} class="text-white/60 hover:text-white font-body text-base transition-colors">
+        Visitar la plataforma →
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+---
+import TestimonioCard from '../ui/TestimonioCard.astro';
+
+// REEMPLAZAR: datos reales de usuarios cuando estén disponibles
+const testimonios = [
+  {
+    nombre: 'Carlos Mendoza',
+    rol: 'Entrenador principal — Club Acuático Santiago',
+    texto: 'SwimAnalytics transformó la forma en que planificamos los entrenamientos. El análisis de splits me permite identificar exactamente dónde cada nadador puede mejorar.',
+  },
+  {
+    nombre: 'María Fernández',
+    rol: 'Administradora — Piscina Municipal Viña del Mar',
+    texto: 'La gestión de grupos y usuarios es increíblemente intuitiva. Ahorro horas de trabajo administrativo cada semana y tengo visibilidad total de toda la actividad del club.',
+  },
+  {
+    nombre: 'Diego Rojas',
+    rol: 'Nadador competitivo — 18 años',
+    texto: 'Poder ver mi progreso en tiempo real y comparar mis tiempos entre competencias me motiva a seguir mejorando. Es como tener un análisis profesional siempre disponible.',
+  },
+  {
+    nombre: 'Andrea Castillo',
+    rol: 'Directora técnica — Federación Regional',
+    texto: 'Los reportes consolidados nos permiten presentar métricas claras a los organismos directivos. La calidad del análisis es comparable a herramientas de nivel internacional.',
+  },
+];
+---
+
+<section class="section-padding bg-gray-very-light">
+  <div class="container-content">
+    <div class="text-center mb-12">
+      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">Lo que dicen</span>
+      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">
+        Comunidad que confía en SwimAnalytics
+      </h2>
+      <p class="text-gray-mid text-lg max-w-2xl mx-auto">
+        Entrenadores, administradores y nadadores de toda Latinoamérica ya usan la plataforma.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {testimonios.map(t => (
+        <TestimonioCard {...t} />
+      ))}
+    </div>
+  </div>
+</section>

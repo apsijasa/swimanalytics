@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categorias = ['Todas', ...new Set(posts.map(p => p.data.category))];
+---
+
+<BaseLayout
+  title="Blog — SwimAnalytics"
+  description="Artículos sobre entrenamiento, análisis de competencia y gestión de clubes de natación competitiva."
+>
+  <Header />
+  <main class="pt-24 pb-16">
+    <div class="container-content">
+      <div class="text-center mb-12">
+        <h1 class="font-heading font-bold text-black text-4xl mb-4">Blog de SwimAnalytics</h1>
+        <p class="text-gray-mid text-lg max-w-xl mx-auto">
+          Recursos, guías y análisis para entrenadores y administradores de natación competitiva.
+        </p>
+      </div>
+
+      <!-- Categorías -->
+      <div class="flex flex-wrap gap-2 justify-center mb-10">
+        {categorias.map(cat => (
+          <span class="px-4 py-1.5 rounded-full border border-gray-border text-sm font-body text-gray-dark hover:border-primary hover:text-primary cursor-pointer transition-colors">
+            {cat}
+          </span>
+        ))}
+      </div>
+
+      <!-- Grid artículos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map(post => (
+          <a href={`/blog/${post.slug}`} class="card overflow-hidden group">
+            <div class="h-48 bg-gray-light flex items-center justify-center">
+              {post.data.heroImage ? (
+                <img src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover" />
+              ) : (
+                <span class="text-5xl">📖</span>
+              )}
+            </div>
+            <div class="p-6">
+              <span class="text-primary text-xs font-body font-semibold uppercase tracking-widest">
+                {post.data.category}
+              </span>
+              <h2 class="font-heading font-bold text-black text-lg mt-1 mb-2 group-hover:text-primary transition-colors">
+                {post.data.title}
+              </h2>
+              <p class="text-gray-mid text-sm leading-relaxed line-clamp-3">{post.data.description}</p>
+              <p class="text-gray-mid text-xs mt-4">
+                {post.data.pubDate.toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-16">
+          <p class="text-gray-mid text-lg">Próximamente habrá artículos aquí.</p>
+        </div>
+      )}
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

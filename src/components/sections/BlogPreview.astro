@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+{posts.length > 0 && (
+  <section class="section-padding bg-white">
+    <div class="container-content">
+      <div class="flex items-end justify-between mb-10">
+        <div>
+          <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">Blog</span>
+          <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2">
+            Últimos artículos
+          </h2>
+        </div>
+        <a href="/blog" class="text-primary hover:text-primary-hover font-body font-semibold text-sm transition-colors hidden sm:flex items-center gap-1">
+          Ver todos
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {posts.map(post => (
+          <a href={`/blog/${post.slug}`} class="card overflow-hidden group">
+            <div class="h-40 bg-gray-light flex items-center justify-center">
+              {post.data.heroImage ? (
+                <img src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover" />
+              ) : (
+                <span class="text-4xl">📖</span>
+              )}
+            </div>
+            <div class="p-5">
+              <span class="text-primary text-xs font-body font-semibold uppercase tracking-widest">
+                {post.data.category}
+              </span>
+              <h3 class="font-heading font-bold text-black text-base mt-1 mb-2 group-hover:text-primary transition-colors">
+                {post.data.title}
+              </h3>
+              <p class="text-gray-mid text-sm line-clamp-2">{post.data.description}</p>
+              <p class="text-gray-mid text-xs mt-3">
+                {post.data.pubDate.toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center mt-8 sm:hidden">
+        <a href="/blog" class="btn-secondary text-sm">Ver todos los artículos</a>
+      </div>
+    </div>
+  </section>
+)}

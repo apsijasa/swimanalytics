@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import ParaQuien from '../components/sections/ParaQuien.astro';
+import Herramientas from '../components/sections/Herramientas.astro';
+import ComoFunciona from '../components/sections/ComoFunciona.astro';
+import Metricas from '../components/sections/Metricas.astro';
+import Testimonios from '../components/sections/Testimonios.astro';
+import BlogPreview from '../components/sections/BlogPreview.astro';
+import CTAFinal from '../components/sections/CTAFinal.astro';
+---
+
+<BaseLayout
+  title="SwimAnalytics — Gestiona, analiza y mejora tu club de natación"
+  description="Plataforma integral de análisis y gestión para natación competitiva. Herramientas para entrenadores, administradores, nadadores y dirigentes."
+>
+  <Header />
+  <main>
+    <Hero />
+    <ParaQuien />
+    <Herramientas />
+    <ComoFunciona />
+    <Metricas />
+    <Testimonios />
+    <BlogPreview />
+    <CTAFinal />
+  </main>
+  <Footer />
+</BaseLayout>
