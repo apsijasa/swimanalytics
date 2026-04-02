@@ -1,79 +1,24 @@
 ---
 import PerfilCard from '../ui/PerfilCard.astro';
+import { t, type Lang } from '../../lib/i18n';
 
-const perfiles = [
-  {
-    icon: '🏊',
-    titulo: 'Entrenadores',
-    beneficios: [
-      'Planificación de ciclos de entrenamiento',
-      'Análisis individual por atleta',
-      'Control de cargas y volúmenes',
-    ],
-  },
-  {
-    icon: '🏢',
-    titulo: 'Administradores de piscina',
-    beneficios: [
-      'Gestión de múltiples grupos y entrenadores',
-      'Control de asistencia y membresías',
-      'Reportes de actividad del club',
-    ],
-  },
-  {
-    icon: '💼',
-    titulo: 'Dueños de piscina',
-    beneficios: [
-      'Visión general del club en tiempo real',
-      'Reportes financieros y de rendimiento',
-      'Dashboard ejecutivo integrado',
-    ],
-  },
-  {
-    icon: '🥇',
-    titulo: 'Nadadores',
-    beneficios: [
-      'Seguimiento de progreso personal',
-      'Historial de tiempos y marcas',
-      'Visualización de mejoras por estilo',
-    ],
-  },
-  {
-    icon: '👨‍👩‍👧',
-    titulo: 'Apoderados',
-    beneficios: [
-      'Visibilidad del avance de sus hijos',
-      'Notificaciones de entrenamientos y competencias',
-      'Acceso seguro y simplificado',
-    ],
-  },
-  {
-    icon: '🏆',
-    titulo: 'Dirigentes',
-    beneficios: [
-      'Métricas consolidadas del club',
-      'Informes para federaciones y organismos',
-      'Comparativas entre temporadas',
-    ],
-  },
-];
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const tr = t(lang).paraQuien;
+
+const icons = ['🏊', '🏢', '💼', '🥇', '👨‍👩‍👧', '🏆'];
 ---
 
 <section id="para-quien" class="section-padding bg-gray-very-light">
   <div class="container-content">
     <div class="text-center mb-12">
-      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">Para cada rol</span>
-      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">
-        ¿Para quién es SwimAnalytics?
-      </h2>
-      <p class="text-gray-mid text-lg max-w-2xl mx-auto">
-        Cada miembro del ecosistema de tu club tiene una experiencia diseñada a su medida.
-      </p>
+      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">{tr.tag}</span>
+      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">{tr.title}</h2>
+      <p class="text-gray-mid text-lg max-w-2xl mx-auto">{tr.subtitle}</p>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {perfiles.map(perfil => (
-        <PerfilCard {...perfil} />
+      {tr.perfiles.map((perfil, i) => (
+        <PerfilCard icon={icons[i]!} titulo={perfil.titulo} beneficios={[...perfil.beneficios]} />
       ))}
     </div>
   </div>

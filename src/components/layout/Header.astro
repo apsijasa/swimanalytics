@@ -1,5 +1,15 @@
 ---
 import { APP_LINKS } from '../../lib/links';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const tr = t(lang);
+const otherLang = lang === 'es' ? 'en' : 'es';
+const otherLangPath = lang === 'es' ? '/en/' : '/';
 ---
 
 <header
@@ -9,7 +19,7 @@ import { APP_LINKS } from '../../lib/links';
   <div class="container-content">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2">
+      <a href={lang === 'es' ? '/' : '/en/'} class="flex items-center gap-2">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="32" height="32" rx="8" fill="#E53935"/>
           <path d="M6 20C8 17 10 16 12 18C14 20 16 20 18 18C20 16 22 16 26 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
@@ -21,29 +31,42 @@ import { APP_LINKS } from '../../lib/links';
       <!-- Nav Desktop -->
       <nav class="hidden md:flex items-center gap-8">
         <a href="#herramientas" class="text-white/80 hover:text-white font-body text-sm transition-colors">
-          Herramientas
+          {tr.header.tools}
         </a>
         <a href="#para-quien" class="text-white/80 hover:text-white font-body text-sm transition-colors">
-          ¿Para quién?
+          {tr.header.forWho}
         </a>
-        <a href="/blog" class="text-white/80 hover:text-white font-body text-sm transition-colors">
-          Blog
+        <a href={lang === 'es' ? '/blog' : '/en/blog'} class="text-white/80 hover:text-white font-body text-sm transition-colors">
+          {tr.header.blog}
         </a>
       </nav>
 
-      <!-- CTA Login -->
+      <!-- Right side -->
       <div class="flex items-center gap-3">
-        <!-- Language flags -->
-        <div class="hidden md:flex items-center gap-1.5">
-          <button title="Español" class="text-xl opacity-80 hover:opacity-100 transition-opacity">🇪🇸</button>
-          <button title="English" class="text-xl opacity-50 hover:opacity-100 transition-opacity">🇬🇧</button>
+        <!-- Language switcher -->
+        <div class="hidden md:flex items-center gap-1 bg-white/10 rounded-lg p-1">
+          <a
+            href="/"
+            title="Español"
+            class={`text-lg px-1 py-0.5 rounded transition-all ${lang === 'es' ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
+          >
+            🇪🇸
+          </a>
+          <a
+            href="/en/"
+            title="English"
+            class={`text-lg px-1 py-0.5 rounded transition-all ${lang === 'en' ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
+          >
+            🇬🇧
+          </a>
         </div>
+
         <a
           href={APP_LINKS.login}
           class="btn-primary text-sm py-2 px-4"
           id="header-login-btn"
         >
-          Login
+          {tr.header.login}
         </a>
 
         <!-- Mobile menu button -->
@@ -63,14 +86,19 @@ import { APP_LINKS } from '../../lib/links';
     <div id="mobile-menu" class="md:hidden hidden pb-4">
       <nav class="flex flex-col gap-3">
         <a href="#herramientas" class="text-white/80 hover:text-white font-body text-sm py-2 transition-colors">
-          Herramientas
+          {tr.header.tools}
         </a>
         <a href="#para-quien" class="text-white/80 hover:text-white font-body text-sm py-2 transition-colors">
-          ¿Para quién?
+          {tr.header.forWho}
         </a>
-        <a href="/blog" class="text-white/80 hover:text-white font-body text-sm py-2 transition-colors">
-          Blog
+        <a href={lang === 'es' ? '/blog' : '/en/blog'} class="text-white/80 hover:text-white font-body text-sm py-2 transition-colors">
+          {tr.header.blog}
         </a>
+        <!-- Language switcher mobile -->
+        <div class="flex items-center gap-2 pt-2 border-t border-white/10">
+          <a href="/" class={`text-xl ${lang === 'es' ? 'opacity-100' : 'opacity-40'}`}>🇪🇸</a>
+          <a href="/en/" class={`text-xl ${lang === 'en' ? 'opacity-100' : 'opacity-40'}`}>🇬🇧</a>
+        </div>
       </nav>
     </div>
   </div>
@@ -83,7 +111,6 @@ import { APP_LINKS } from '../../lib/links';
     menu?.classList.toggle('hidden');
   });
 
-  // Close mobile menu on link click
   menu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => menu.classList.add('hidden'));
   });

@@ -1,14 +1,17 @@
 ---
 import { APP_LINKS } from '../../lib/links';
 import Button from '../ui/Button.astro';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const tr = t(lang).hero;
 ---
 
-<!-- REEMPLAZAR: hero-bg.webp con imagen real de fondo -->
 <section
   class="relative min-h-screen flex items-center justify-center bg-black overflow-hidden"
   style="background-image: linear-gradient(135deg, #212121 0%, #1a1a2e 50%, #16213e 100%);"
 >
-  <!-- Decorative waves -->
   <div class="absolute inset-0 opacity-10">
     <svg viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" preserveAspectRatio="xMidYMid slice">
       <path d="M0 300C240 200 480 400 720 300C960 200 1200 400 1440 300V600H0V300Z" fill="#E53935"/>
@@ -17,51 +20,41 @@ import Button from '../ui/Button.astro';
   </div>
 
   <div class="container-content relative z-10 text-center py-32 pt-40">
-    <!-- Badge -->
     <div class="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 text-primary-pale text-sm font-body px-4 py-1.5 rounded-full mb-8">
       <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-      Plataforma líder en natación competitiva
+      {tr.badge}
     </div>
 
-    <!-- Headline -->
     <h1 class="font-heading font-extrabold text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6 max-w-5xl mx-auto">
-      Gestiona, analiza y mejora<br class="hidden md:block" />
-      <span class="text-primary">tu club de natación</span>
+      {tr.title}<br class="hidden md:block" />
+      <span class="text-primary">{tr.titleHighlight}</span>
     </h1>
 
-    <!-- Subheadline -->
     <p class="text-white/70 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-      SwimAnalytics unifica la gestión de entrenadores, nadadores y administradores en una sola plataforma inteligente. Optimiza el rendimiento con datos reales.
+      {tr.subtitle}
     </p>
 
-    <!-- CTAs -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <Button href={APP_LINKS.login} variant="primary" size="lg">
-        Comenzar gratis
-      </Button>
-      <Button href="#herramientas" variant="secondary" size="lg">
-        Ver herramientas
-      </Button>
+      <Button href={APP_LINKS.login} variant="primary" size="lg">{tr.ctaPrimary}</Button>
+      <Button href="#herramientas" variant="secondary" size="lg">{tr.ctaSecondary}</Button>
     </div>
 
-    <!-- Stats preview -->
     <div class="mt-16 grid grid-cols-3 gap-4 max-w-lg mx-auto">
       <div class="text-center">
         <p class="font-heading font-bold text-white text-2xl">500+</p>
-        <p class="text-white/50 text-xs">Usuarios</p>
+        <p class="text-white/50 text-xs">{tr.statsUsers}</p>
       </div>
       <div class="text-center border-x border-white/10">
         <p class="font-heading font-bold text-white text-2xl">50k+</p>
-        <p class="text-white/50 text-xs">Planes</p>
+        <p class="text-white/50 text-xs">{tr.statsPlans}</p>
       </div>
       <div class="text-center">
         <p class="font-heading font-bold text-white text-2xl">1M+</p>
-        <p class="text-white/50 text-xs">Tiempos</p>
+        <p class="text-white/50 text-xs">{tr.statsTimes}</p>
       </div>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
     <svg class="w-6 h-6 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />

@@ -1,45 +1,37 @@
 ---
 import TestimonioCard from '../ui/TestimonioCard.astro';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const tr = t(lang).testimonios;
 
 // REEMPLAZAR: datos reales de usuarios cuando estén disponibles
-const testimonios = [
-  {
-    nombre: 'Carlos Mendoza',
-    rol: 'Entrenador principal — Club Acuático Santiago',
-    texto: 'SwimAnalytics transformó la forma en que planificamos los entrenamientos. El análisis de splits me permite identificar exactamente dónde cada nadador puede mejorar.',
-  },
-  {
-    nombre: 'María Fernández',
-    rol: 'Administradora — Piscina Municipal Viña del Mar',
-    texto: 'La gestión de grupos y usuarios es increíblemente intuitiva. Ahorro horas de trabajo administrativo cada semana y tengo visibilidad total de toda la actividad del club.',
-  },
-  {
-    nombre: 'Diego Rojas',
-    rol: 'Nadador competitivo — 18 años',
-    texto: 'Poder ver mi progreso en tiempo real y comparar mis tiempos entre competencias me motiva a seguir mejorando. Es como tener un análisis profesional siempre disponible.',
-  },
-  {
-    nombre: 'Andrea Castillo',
-    rol: 'Directora técnica — Federación Regional',
-    texto: 'Los reportes consolidados nos permiten presentar métricas claras a los organismos directivos. La calidad del análisis es comparable a herramientas de nivel internacional.',
-  },
-];
+const testimonios = {
+  es: [
+    { nombre: 'Carlos Mendoza', rol: 'Entrenador principal — Club Acuático Santiago', texto: 'SwimAnalytics transformó la forma en que planificamos los entrenamientos. El análisis de splits me permite identificar exactamente dónde cada nadador puede mejorar.' },
+    { nombre: 'María Fernández', rol: 'Administradora — Piscina Municipal Viña del Mar', texto: 'La gestión de grupos y usuarios es increíblemente intuitiva. Ahorro horas de trabajo administrativo cada semana y tengo visibilidad total de toda la actividad del club.' },
+    { nombre: 'Diego Rojas', rol: 'Nadador competitivo — 18 años', texto: 'Poder ver mi progreso en tiempo real y comparar mis tiempos entre competencias me motiva a seguir mejorando. Es como tener un análisis profesional siempre disponible.' },
+    { nombre: 'Andrea Castillo', rol: 'Directora técnica — Federación Regional', texto: 'Los reportes consolidados nos permiten presentar métricas claras a los organismos directivos. La calidad del análisis es comparable a herramientas de nivel internacional.' },
+  ],
+  en: [
+    { nombre: 'Carlos Mendoza', rol: 'Head Coach — Santiago Aquatic Club', texto: 'SwimAnalytics transformed the way we plan training. The split analysis lets me identify exactly where each swimmer can improve.' },
+    { nombre: 'María Fernández', rol: 'Administrator — Viña del Mar Municipal Pool', texto: 'Group and user management is incredibly intuitive. I save hours of administrative work every week and have full visibility of all club activity.' },
+    { nombre: 'Diego Rojas', rol: 'Competitive swimmer — 18 years old', texto: 'Being able to see my progress in real time and compare my times across competitions motivates me to keep improving. It\'s like having professional analysis always available.' },
+    { nombre: 'Andrea Castillo', rol: 'Technical Director — Regional Federation', texto: 'The consolidated reports allow us to present clear metrics to governing bodies. The quality of analysis is comparable to international-level tools.' },
+  ],
+};
 ---
 
 <section class="section-padding bg-gray-very-light">
   <div class="container-content">
     <div class="text-center mb-12">
-      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">Lo que dicen</span>
-      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">
-        Comunidad que confía en SwimAnalytics
-      </h2>
-      <p class="text-gray-mid text-lg max-w-2xl mx-auto">
-        Entrenadores, administradores y nadadores de toda Latinoamérica ya usan la plataforma.
-      </p>
+      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">{tr.tag}</span>
+      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">{tr.title}</h2>
+      <p class="text-gray-mid text-lg max-w-2xl mx-auto">{tr.subtitle}</p>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {testimonios.map(t => (
+      {testimonios[lang].map(t => (
         <TestimonioCard {...t} />
       ))}
     </div>

@@ -1,58 +1,32 @@
 ---
 import { APP_LINKS } from '../../lib/links';
+import { t, type Lang } from '../../lib/i18n';
 
-const pasos = [
-  {
-    numero: 1,
-    titulo: 'Crea tu club',
-    descripcion: 'Registra tu club en minutos. Agrega entrenadores, grupos y nadadores con un flujo guiado.',
-    icon: '🏗️',
-  },
-  {
-    numero: 2,
-    titulo: 'Registra entrenamientos',
-    descripcion: 'Planifica y registra cada sesión con series, estilos, distancias y zonas de energía.',
-    icon: '📝',
-  },
-  {
-    numero: 3,
-    titulo: 'Analiza resultados',
-    descripcion: 'Importa resultados de competencias y accede a análisis de splits, tendencias y comparativas.',
-    icon: '📊',
-  },
-  {
-    numero: 4,
-    titulo: 'Optimiza el rendimiento',
-    descripcion: 'Usa las simulaciones y la planificación para diseñar estrategias de mejora basadas en datos.',
-    icon: '🚀',
-  },
-];
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const tr = t(lang).comoFunciona;
+
+const icons = ['🏗️', '📝', '📊', '🚀'];
 ---
 
 <section id="como-funciona" class="section-padding bg-gray-light">
   <div class="container-content">
     <div class="text-center mb-12">
-      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">Simple y potente</span>
-      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">
-        Cómo funciona
-      </h2>
-      <p class="text-gray-mid text-lg max-w-2xl mx-auto">
-        Cuatro pasos para transformar la gestión de tu club con datos reales.
-      </p>
+      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">{tr.tag}</span>
+      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">{tr.title}</h2>
+      <p class="text-gray-mid text-lg max-w-2xl mx-auto">{tr.subtitle}</p>
     </div>
 
-    <!-- Desktop: horizontal timeline -->
+    <!-- Desktop -->
     <div class="hidden md:grid grid-cols-4 gap-4 relative mb-12">
-      <!-- Connecting line -->
       <div class="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-gray-border z-0"></div>
-
-      {pasos.map(paso => (
+      {tr.pasos.map((paso, i) => (
         <div class="flex flex-col items-center text-center relative z-10">
           <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-2xl mb-4 shadow-lg">
-            {paso.icon}
+            {icons[i]}
           </div>
           <span class="font-heading font-bold text-primary text-xs uppercase tracking-widest mb-1">
-            Paso {paso.numero}
+            {lang === 'es' ? `Paso ${i + 1}` : `Step ${i + 1}`}
           </span>
           <h3 class="font-heading font-bold text-black text-base mb-2">{paso.titulo}</h3>
           <p class="text-gray-mid text-sm leading-relaxed">{paso.descripcion}</p>
@@ -60,16 +34,16 @@ const pasos = [
       ))}
     </div>
 
-    <!-- Mobile: vertical -->
+    <!-- Mobile -->
     <div class="md:hidden space-y-6 mb-12">
-      {pasos.map(paso => (
+      {tr.pasos.map((paso, i) => (
         <div class="flex gap-4 items-start">
           <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-xl flex-shrink-0">
-            {paso.icon}
+            {icons[i]}
           </div>
           <div>
             <span class="text-primary font-body font-semibold text-xs uppercase tracking-widest">
-              Paso {paso.numero}
+              {lang === 'es' ? `Paso ${i + 1}` : `Step ${i + 1}`}
             </span>
             <h3 class="font-heading font-bold text-black text-base mt-0.5 mb-1">{paso.titulo}</h3>
             <p class="text-gray-mid text-sm leading-relaxed">{paso.descripcion}</p>
@@ -79,9 +53,7 @@ const pasos = [
     </div>
 
     <div class="text-center">
-      <a href={APP_LINKS.login} class="btn-primary text-base px-8 py-4">
-        Crear cuenta gratis
-      </a>
+      <a href={APP_LINKS.login} class="btn-primary text-base px-8 py-4">{tr.cta}</a>
     </div>
   </div>
 </section>

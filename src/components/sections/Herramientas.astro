@@ -1,85 +1,30 @@
 ---
 import HerramientaCard from '../ui/HerramientaCard.astro';
+import { t, type Lang } from '../../lib/i18n';
 
-const herramientas = [
-  {
-    numero: 1,
-    icon: '🏗️',
-    nombre: 'Administración de clubes',
-    descripcion: 'Gestiona grupos, usuarios y roles con un sistema de permisos granular. Todo tu club en un solo lugar.',
-    features: [
-      'Creación y gestión de grupos de entrenamiento',
-      'Roles personalizados: entrenador, admin, nadador',
-      'Sistema de permisos flexible',
-      'Gestión de membresías y cuotas',
-    ],
-  },
-  {
-    numero: 2,
-    icon: '📋',
-    nombre: 'Registro de entrenamientos',
-    descripcion: 'Registra series, distancias, estilos y zonas de energía. Lleva un historial completo de cada sesión.',
-    features: [
-      'Registro detallado por series y repeticiones',
-      'Clasificación por estilos y zonas de energía',
-      'Asignación de entrenamientos a grupos',
-      'Historial cronológico completo',
-    ],
-  },
-  {
-    numero: 3,
-    icon: '📊',
-    nombre: 'Análisis de competencia',
-    descripcion: 'Analiza tiempos parciales, splits y compara resultados entre competencias con visualizaciones detalladas.',
-    features: [
-      'Importación de resultados de competencias',
-      'Análisis de splits por vuelta',
-      'Comparación entre competencias',
-      'Identificación de patrones de rendimiento',
-    ],
-  },
-  {
-    numero: 4,
-    icon: '🧮',
-    nombre: 'Simulaciones',
-    descripcion: 'Modela escenarios para evaluar mejoras potenciales y proyectar el rendimiento de tus nadadores.',
-    features: [
-      'Simulación de splits objetivo',
-      'Proyección de tiempos finales',
-      'Modelado de estrategias de carrera',
-      'Comparación de escenarios alternativos',
-    ],
-  },
-  {
-    numero: 5,
-    icon: '📅',
-    nombre: 'Planificación',
-    descripcion: 'Estructura macrociclos, mesociclos y microciclos con herramientas de periodización profesional.',
-    features: [
-      'Planificación por macrociclos y mesociclos',
-      'Microciclos semanales detallados',
-      'Control de cargas y recuperación',
-      'Sincronización con el calendario de competencias',
-    ],
-  },
-];
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const tr = t(lang).herramientas;
+
+const icons = ['🏗️', '📋', '📊', '🧮', '📅'];
 ---
 
 <section id="herramientas" class="section-padding bg-white">
   <div class="container-content">
     <div class="text-center mb-12">
-      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">5 herramientas integradas</span>
-      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">
-        Todo lo que necesita tu club
-      </h2>
-      <p class="text-gray-mid text-lg max-w-2xl mx-auto">
-        Desde la planificación hasta el análisis post-competencia — SwimAnalytics cubre todo el ciclo del rendimiento.
-      </p>
+      <span class="text-primary font-body font-semibold text-sm uppercase tracking-widest">{tr.tag}</span>
+      <h2 class="font-heading font-bold text-black text-3xl sm:text-4xl mt-2 mb-4">{tr.title}</h2>
+      <p class="text-gray-mid text-lg max-w-2xl mx-auto">{tr.subtitle}</p>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {herramientas.map(h => (
-        <HerramientaCard {...h} />
+      {tr.items.map((h, i) => (
+        <HerramientaCard
+          numero={i + 1}
+          icon={icons[i]!}
+          nombre={h.nombre}
+          descripcion={h.descripcion}
+          features={[...h.features]}
+        />
       ))}
     </div>
   </div>

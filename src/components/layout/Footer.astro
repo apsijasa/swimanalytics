@@ -1,13 +1,17 @@
 ---
 import { APP_LINKS } from '../../lib/links';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const tr = t(lang).footer;
 ---
 
 <footer class="bg-black text-white py-12">
   <div class="container-content">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-      <!-- Brand -->
       <div class="md:col-span-2">
-        <a href="/" class="flex items-center gap-2 mb-4">
+        <a href={lang === 'es' ? '/' : '/en/'} class="flex items-center gap-2 mb-4">
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" rx="8" fill="#E53935"/>
             <path d="M6 20C8 17 10 16 12 18C14 20 16 20 18 18C20 16 22 16 26 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
@@ -15,52 +19,34 @@ import { APP_LINKS } from '../../lib/links';
           </svg>
           <span class="font-heading font-bold text-white">SwimAnalytics</span>
         </a>
-        <p class="text-white/60 text-sm max-w-xs">
-          Plataforma integral de análisis y gestión para natación competitiva. Potencia el rendimiento de tu club.
-        </p>
+        <p class="text-white/60 text-sm max-w-xs">{tr.description}</p>
       </div>
 
-      <!-- Plataforma -->
       <div>
-        <h3 class="font-heading font-semibold text-white mb-3 text-sm uppercase tracking-wide">Plataforma</h3>
+        <h3 class="font-heading font-semibold text-white mb-3 text-sm uppercase tracking-wide">{tr.platform}</h3>
         <ul class="space-y-2">
-          <li><a href="#herramientas" class="text-white/60 hover:text-white text-sm transition-colors">Herramientas</a></li>
-          <li><a href="#para-quien" class="text-white/60 hover:text-white text-sm transition-colors">¿Para quién?</a></li>
-          <li><a href="#como-funciona" class="text-white/60 hover:text-white text-sm transition-colors">Cómo funciona</a></li>
-          <li><a href="/blog" class="text-white/60 hover:text-white text-sm transition-colors">Blog</a></li>
+          <li><a href="#herramientas" class="text-white/60 hover:text-white text-sm transition-colors">{t(lang).header.tools}</a></li>
+          <li><a href="#para-quien" class="text-white/60 hover:text-white text-sm transition-colors">{t(lang).header.forWho}</a></li>
+          <li><a href="#como-funciona" class="text-white/60 hover:text-white text-sm transition-colors">{t(lang).comoFunciona.title}</a></li>
+          <li><a href={lang === 'es' ? '/blog' : '/en/blog'} class="text-white/60 hover:text-white text-sm transition-colors">{t(lang).header.blog}</a></li>
         </ul>
       </div>
 
-      <!-- Acceso -->
       <div>
-        <h3 class="font-heading font-semibold text-white mb-3 text-sm uppercase tracking-wide">Acceso</h3>
+        <h3 class="font-heading font-semibold text-white mb-3 text-sm uppercase tracking-wide">{tr.access}</h3>
         <ul class="space-y-2">
-          <li>
-            <a href={APP_LINKS.login} class="text-white/60 hover:text-white text-sm transition-colors">
-              Iniciar sesión
-            </a>
-          </li>
-          <li>
-            <a href={APP_LINKS.login} class="text-white/60 hover:text-white text-sm transition-colors">
-              Crear cuenta
-            </a>
-          </li>
-          <li>
-            <a href={APP_LINKS.app} class="text-white/60 hover:text-white text-sm transition-colors">
-              swimanalytics.org
-            </a>
-          </li>
+          <li><a href={APP_LINKS.login} class="text-white/60 hover:text-white text-sm transition-colors">{tr.login}</a></li>
+          <li><a href={APP_LINKS.login} class="text-white/60 hover:text-white text-sm transition-colors">{tr.createAccount}</a></li>
+          <li><a href={APP_LINKS.app} class="text-white/60 hover:text-white text-sm transition-colors">swimanalytics.org</a></li>
         </ul>
       </div>
     </div>
 
     <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
       <p class="text-white/40 text-sm">
-        &copy; {new Date().getFullYear()} SwimAnalytics. Todos los derechos reservados.
+        &copy; {new Date().getFullYear()} SwimAnalytics. {tr.copyright}
       </p>
-      <p class="text-white/40 text-sm">
-        Hecho con pasión por la natación competitiva 🏊
-      </p>
+      <p class="text-white/40 text-sm">{tr.madeWith} 🏊</p>
     </div>
   </div>
 </footer>
